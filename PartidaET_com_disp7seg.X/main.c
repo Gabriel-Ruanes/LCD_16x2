@@ -38,8 +38,15 @@ void main(void)
                     break;
                 
             case 2:
+                    if (botao_S0() == 1)
+                    {
+                        k1 (0);
+                        k2 (0);
+                        k3 (0);
+                        estado = 0;
+                    }
                     delay(1);                    
-                    if ( --t <= 0 )                         
+                    if ( --t <= 0 )
                         estado = 3;
                     break;
                     
