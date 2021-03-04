@@ -15,16 +15,17 @@
 void main(void) 
 {
     contatores_init();
-    disp7seg_init();
+    disp7seg_init();     
     int estado = 0;
     char cont = 0;
     int t;    
+    display7seg(cont);
     
     while ( 1 )
     {
         switch ( estado )
         {
-            case 0:
+            case 0:                    
                     if ( botao_S1() == 1 )
                         estado = 1; 
                     break;
@@ -37,27 +38,27 @@ void main(void)
                     estado = 2;
                     break;
                 
-            case 2:
+            case 2:                
                     if (botao_S0() == 1)
                     {
                         k1 (0);
                         k2 (0);
                         k3 (0);
                         estado = 0;
-                    }
+                    }                    
                     delay(1);                    
                     if ( --t <= 0 )
-                        estado = 3;
+                    estado = 3;
                     break;
                     
-            case 3:
-                    display7seg(cont);
-                    if ( ++cont >= 10 )
-                        cont = 0;
-                        estado = 4;
+            case 3:                
+                     if ( ++cont >= 10 )
+                        cont = 1;
+                     display7seg(cont);
+                     estado = 4;
                     break;
                 
-            case 4:                  
+            case 4:                                          
                     k1 (1);
                     k2 (0);
                     k3 (1);
