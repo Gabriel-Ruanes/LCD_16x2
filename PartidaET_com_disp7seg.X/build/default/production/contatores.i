@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "contatores.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
+# 1 "contatores.c" 2
 
 
 
@@ -2499,109 +2499,39 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
-# 9 "main.c" 2
-
-# 1 "./config.h" 1
-
-
-
-
-#pragma config FOSC = INTRC_NOCLKOUT
-#pragma config WDTE = OFF
-#pragma config PWRTE = OFF
-#pragma config MCLRE = OFF
-#pragma config CP = OFF
-#pragma config CPD = OFF
-#pragma config BOREN = OFF
-#pragma config IESO = OFF
-#pragma config FCMEN = OFF
-#pragma config LVP = OFF
-
-
-#pragma config BOR4V = BOR40V
-#pragma config WRT = OFF
-# 10 "main.c" 2
-
-# 1 "./delay.h" 1
-
-
-
-void delay ( unsigned int t );
-# 11 "main.c" 2
-
-# 1 "./contatores.h" 1
-
-
-
-void contatores_init ( void );
-char botao_S1 ( void );
-char botao_S0 ( void );
-void k1 ( int x );
-void k2 ( int x );
-void k3 ( int x );
-# 12 "main.c" 2
-
-# 1 "./disp7seg.h" 1
-
-
-
-void disp7seg_init ( void );
-void display7seg ( int c );
-# 13 "main.c" 2
-
-
-void main(void)
+# 9 "contatores.c" 2
+# 18 "contatores.c"
+void contatores_init ( void )
 {
-    contatores_init();
-    disp7seg_init();
-    int estado = 0;
-    char cont = 0;
-    int t;
+    TRISDbits.TRISD0 = 1;
+    TRISDbits.TRISD1 = 1;
+    TRISDbits.TRISD7 = 0;
+    TRISDbits.TRISD6 = 0;
+    TRISDbits.TRISD5 = 0;
+    PORTD = 0;
+}
 
-    while ( 1 )
-    {
-        switch ( estado )
-        {
-            case 0:
-                    if ( botao_S1() == 1 )
-                        estado = 1;
-                    break;
+char botao_S1 ( void )
+{
+    return (PORTDbits.RD1);
+}
 
-            case 1:
-                    k1 (1);
-                    k2 (1);
-                    k3 (0);
-                    t = 3000;
-                    estado = 2;
-                    break;
+char botao_S0 ( void )
+{
+    return (PORTDbits.RD0);
+}
 
-            case 2:
-                    delay(1);
-                    if ( --t <= 0 )
-                        estado = 3;
-                    break;
+void k1 ( int x )
+{
+    PORTDbits.RD7 = x;
+}
 
-            case 3:
-                    display7seg(cont);
-                    if (++cont >= 10 )
-                        cont = 0;
-                        estado = 4;
-                    break;
+void k2 ( int x )
+{
+    PORTDbits.RD6 = x;
+}
 
-            case 4:
-                    k1 (1);
-                    k2 (0);
-                    k3 (1);
-                    if ( botao_S0() == 1 )
-                        estado = 5;
-                    break;
-
-            case 5:
-                    k1 (0);
-                    k2 (0);
-                    k3 (0);
-                    estado = 0;
-                    break;
-        }
-    }
+void k3 ( int x )
+{
+    PORTDbits.RD5 = x;
 }
