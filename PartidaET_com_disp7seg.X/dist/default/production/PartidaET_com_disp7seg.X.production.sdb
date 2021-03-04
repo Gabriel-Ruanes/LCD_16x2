@@ -69,12 +69,12 @@
 [v _main main `(v  1 e 1 0 ]
 {
 "19
-[v main@estado estado `i  1 a 2 7 ]
+[v main@estado estado `i  1 a 2 8 ]
 "21
 [v main@t t `i  1 a 2 5 ]
 "20
-[v main@cont cont `uc  1 a 1 9 ]
-"69
+[v main@cont cont `uc  1 a 1 7 ]
+"76
 } 0
 "48 C:\Users\21192694\MPLABXProjects\PartidaE-T_com_-disp7seg\PartidaET_com_disp7seg.X\contatores.c
 [v _k3 k3 `(v  1 e 1 0 ]
